@@ -1,0 +1,2463 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Algorithm_Integrated</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-12-21"><meta name="DC.source" content="Algorithm_Integrated.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Import data from spreadsheet</a></li><li><a href="#2">verifying the data</a></li><li><a href="#3">Gyroscope</a></li><li><a href="#4">Set up the Import Options and import the data</a></li><li><a href="#5">Create output variable</a></li><li><a href="#6">Create table</a></li><li><a href="#7">Allocate imported array to column variable names</a></li><li><a href="#8">Clear temporary variables</a></li><li><a href="#9">Speed Calculation</a></li><li><a href="#10">Gravity Variations in a Lift</a></li><li><a href="#11">Import the data</a></li><li><a href="#12">Light Sensor</a></li><li><a href="#13">Sound Level</a></li><li><a href="#14">Accelerometer</a></li><li><a href="#15">Import data from text file</a></li><li><a href="#16">Set up the Import Options and import the data</a></li><li><a href="#17">Convert to output type</a></li><li><a href="#18">Import the data</a></li><li><a href="#19">Create output variable</a></li><li><a href="#20">Create table</a></li><li><a href="#21">Allocate imported array to column variable names</a></li><li><a href="#22">Clear temporary variables</a></li><li><a href="#23">Functions</a></li></ul></div><h2 id="1">Import data from spreadsheet</h2><pre class="codeinput"><span class="comment">%read the data required from whole data sheet</span>
+<span class="comment">%proximity data taken to a</span>
+Data_Set=xlsread (<span class="string">'Team_1_Data_Set.xlsx'</span>);
+[prox_0] = Data_Set(:,30);
+[prox_1] = Data_Set(:,20);
+<span class="comment">% plotting the value of proximity sensor against time</span>
+<span class="comment">%plot the graph</span>
+subplot(4,4,9);
+plot(prox_0,prox_1);
+xlabel(<span class="string">"Time (s)"</span>);
+ylabel(<span class="string">"Proximity"</span>);
+title(<span class="string">"ProximityPlot"</span>);
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_01.png" alt=""> <h2 id="2">verifying the data</h2><pre class="codeinput">disp(<span class="string">'put any obstacle near phone'</span>)
+b=1;
+<span class="keyword">for</span> loop = 1:30
+    <span class="keyword">if</span> (prox_1(b)==0)
+        disp(prox_1(b))
+        disp(<span class="string">'obstacle find within 5CM'</span>)
+        b = b+1;
+    <span class="keyword">elseif</span> (prox_1(b)&gt;0 &amp;&amp; prox_1(b)&lt;=10)
+        disp(prox_1(b))
+        disp(<span class="string">'obstacle find within 10CM'</span>)
+        b = b+1;
+    <span class="keyword">else</span>
+        disp(prox_1(b))
+        disp(<span class="string">'safe, no obstacle'</span>)
+        b = b+1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">put any obstacle near phone
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    10
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+     0
+
+obstacle find within 5CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+    3.9000
+
+obstacle find within 10CM
+</pre><h2 id="3">Gyroscope</h2><p>Import data from text file Script for importing data from the following text file:</p><pre>  filename: D:\Akshay_Files\androsensor.csv</pre><p>Auto-generated by MATLAB on 20-Dec-2020 14:29:29</p><h2 id="4">Set up the Import Options and import the data</h2><pre class="codeinput">opts = delimitedTextImportOptions(<span class="string">"NumVariables"</span>, 31);
+
+<span class="comment">% Specify range and delimiter</span>
+opts.DataLines = [1, Inf];
+opts.Delimiter = <span class="string">";"</span>;
+
+<span class="comment">% Specify column names and types</span>
+opts.VariableNames = [<span class="string">"ACCELEROMETERXms"</span>, <span class="string">"ACCELEROMETERYms"</span>, <span class="string">"ACCELEROMETERZms"</span>, <span class="string">"GRAVITYXms"</span>, <span class="string">"GRAVITYYms"</span>, <span class="string">"GRAVITYZms"</span>, <span class="string">"LINEARACCELERATIONXms"</span>, <span class="string">"LINEARACCELERATIONYms"</span>, <span class="string">"LINEARACCELERATIONZms"</span>, <span class="string">"GYROSCOPEXrads"</span>, <span class="string">"GYROSCOPEYrads"</span>, <span class="string">"GYROSCOPEZrads"</span>, <span class="string">"LIGHTlux"</span>, <span class="string">"MAGNETICFIELDXT"</span>, <span class="string">"MAGNETICFIELDYT"</span>, <span class="string">"MAGNETICFIELDZT"</span>, <span class="string">"ORIENTATIONZazimuth"</span>, <span class="string">"ORIENTATIONXpitch"</span>, <span class="string">"ORIENTATIONYroll"</span>, <span class="string">"PROXIMITYi"</span>, <span class="string">"SOUNDLEVELdB"</span>, <span class="string">"LOCATIONLatitude"</span>, <span class="string">"LOCATIONLongitude"</span>, <span class="string">"LOCATIONAltitudeM"</span>, <span class="string">"LOCATIONAltitudegoogleM"</span>, <span class="string">"LOCATIONSpeedKmh"</span>, <span class="string">"LOCATIONAccuracyM"</span>, <span class="string">"LOCATIONORIENTATION"</span>, <span class="string">"SatellitesInRange"</span>, <span class="string">"TimeSinceStartInMs"</span>, <span class="string">"YYYYMODDHHMISS_SSS"</span>];
+opts.VariableTypes = [<span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"double"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"categorical"</span>, <span class="string">"double"</span>, <span class="string">"string"</span>];
+
+<span class="comment">% Specify file level properties</span>
+opts.ExtraColumnsRule = <span class="string">"ignore"</span>;
+opts.EmptyLineRule = <span class="string">"read"</span>;
+opts.ConsecutiveDelimitersRule = <span class="string">"join"</span>;
+
+<span class="comment">% Specify variable properties</span>
+opts = setvaropts(opts, [<span class="string">"LOCATIONLatitude"</span>, <span class="string">"LOCATIONLongitude"</span>, <span class="string">"LOCATIONAltitudeM"</span>, <span class="string">"LOCATIONSpeedKmh"</span>, <span class="string">"LOCATIONAccuracyM"</span>, <span class="string">"LOCATIONORIENTATION"</span>, <span class="string">"YYYYMODDHHMISS_SSS"</span>], <span class="string">"WhitespaceRule"</span>, <span class="string">"preserve"</span>);
+opts = setvaropts(opts, [<span class="string">"LOCATIONLatitude"</span>, <span class="string">"LOCATIONLongitude"</span>, <span class="string">"LOCATIONAltitudeM"</span>, <span class="string">"LOCATIONSpeedKmh"</span>, <span class="string">"LOCATIONAccuracyM"</span>, <span class="string">"LOCATIONORIENTATION"</span>, <span class="string">"SatellitesInRange"</span>, <span class="string">"YYYYMODDHHMISS_SSS"</span>], <span class="string">"EmptyFieldRule"</span>, <span class="string">"auto"</span>);
+
+<span class="comment">% Import the data</span>
+x_read = xlsread(<span class="string">'Team_1_Data_Set.xlsx'</span>,<span class="string">'J2:J98'</span>);
+timems = xlsread(<span class="string">'Team_1_Data_Set.xlsx'</span>,<span class="string">'AD2:AD98'</span>);
+gyro_x = [x_read,timems];
+</pre><h2 id="5">Create output variable</h2><pre class="codeinput">data = gyro_x;
+</pre><h2 id="6">Create table</h2><pre class="codeinput">stepdata = table;
+</pre><h2 id="7">Allocate imported array to column variable names</h2><pre class="codeinput">stepdata.GYROSCOPEXrads = data(:,1);
+stepdata.TimeSinceStartInMs = data(:,2);
+</pre><h2 id="8">Clear temporary variables</h2><pre class="codeinput">clearvars <span class="string">gyro_x</span> <span class="string">x_read</span> <span class="string">timems</span> <span class="string">R</span>;
+
+<span class="comment">%data=x_read;</span>
+stepdata=table;
+stepdata1=table;
+<span class="comment">%data1=timems;</span>
+stepdata.gyroscope=data(:,1);
+stepdata.time=data(:,2);
+values=numel(data(:,1));
+p=[];
+cnt=0;
+cnt1=0;
+<span class="keyword">for</span> i=1:values
+    j=j+1;
+    <span class="keyword">if</span>(stepdata.gyroscope(i,1)&gt;0)
+        cnt=cnt+1;
+        stem(stepdata.gyroscope(i,1));
+        disp(<span class="string">"The phone is  being using"</span>);
+    <span class="keyword">else</span>
+        cnt1=cnt1+1;
+        disp(<span class="string">"The phone is not being used"</span>);
+    <span class="keyword">end</span>
+    disp(<span class="string">"The number of times the phone is being used is "</span>);
+    disp(cnt);
+    disp(<span class="string">"The number of times the phone is not being used is "</span>);
+    disp(<span class="string">"cnt1"</span>);
+<span class="keyword">end</span>
+subplot(4,4,12);
+plot(stepdata.time,stepdata.gyroscope);
+title(<span class="string">"Gyroscope Data"</span>);
+xlabel(<span class="string">"Time (ms)"</span>);
+ylabel(<span class="string">"Radians per sec"</span>);
+</pre><pre class="codeoutput">The phone is not being used
+The number of times the phone is being used is 
+     0
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     0
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     0
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     0
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     1
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     2
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     3
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     3
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     3
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     3
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     3
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     4
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     5
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     5
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     5
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     5
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     5
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     6
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     7
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     8
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+     9
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     9
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+     9
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    10
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    11
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    12
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    13
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    14
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    15
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    16
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    17
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    18
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    19
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    20
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    21
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    22
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    22
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    22
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    22
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    23
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    24
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    24
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    25
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    26
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    26
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    26
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    27
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    28
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    29
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    30
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    30
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    30
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    30
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    30
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    30
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    31
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    31
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    31
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    31
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    31
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    32
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    33
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    34
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    34
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    34
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    34
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    35
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    36
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    36
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    36
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    37
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    37
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    37
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    37
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    38
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    39
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    40
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    41
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    41
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    41
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    41
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    41
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    42
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    42
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    42
+
+The number of times the phone is not being used is 
+cnt1
+The phone is not being used
+The number of times the phone is being used is 
+    42
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    43
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    44
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    45
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    46
+
+The number of times the phone is not being used is 
+cnt1
+The phone is  being using
+The number of times the phone is being used is 
+    47
+
+The number of times the phone is not being used is 
+cnt1
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_02.png" alt=""> <h2 id="9">Speed Calculation</h2><pre class="codeinput">[Latitude] = Data_Set(:,22);
+[Longitude] = Data_Set(:,23);
+[Speed] = Data_Set(:,26);
+[Time] = Data_Set(:,30);
+
+Lat1 = [];
+Long1 = [];
+Lat2 = [];
+Long2 = [];
+Lat3 = [];
+Long3 = [];
+
+[a, speedLength]=size(Speed);
+
+<span class="keyword">for</span> i = 1:speedLength
+    <span class="keyword">if</span> Speed(i) &lt; 10
+        [Lat1] = [Lat1;Latitude(i)];
+        [Long1] = [Long1;Longitude(i)];
+    <span class="keyword">elseif</span> Speed(i)&gt;=10 &amp;&amp; Speed(i)&lt;30
+        [Lat2] = [Lat2;Latitude(i)];
+        [Long2] = [Long2;Longitude(i)];
+    <span class="keyword">else</span>
+        [Lat3] = [Lat3;Latitude(i)];
+        [Long3] = [Long3;Longitude(i)];
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">%subplot(2,2,2);</span>
+
+<span class="comment">%title('Locations With High traffic');</span>
+<span class="comment">%xlabel('Latitude');</span>
+<span class="comment">%ylabel('Longitude');</span>
+subplot(4,4,1);
+geoscatter(Latitude,Longitude,<span class="string">'r'</span>);
+title(<span class="string">'Total Route'</span>);
+subplot(4,4,2);
+geoscatter(Lat1,Long1);
+plot(Time,Speed);
+title(<span class="string">'Speed Vs Time'</span>);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'Speed'</span>);
+subplot(4,4,3);
+geoscatter(Lat1,Long1,<span class="string">'o'</span>);
+title(<span class="string">'Locations With High traffic'</span>);
+subplot(4,4,4);
+geoscatter(Lat2,Long2,<span class="string">'k'</span>);
+title(<span class="string">'Locations With Low traffic'</span>);
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_03.png" alt=""> <h2 id="10">Gravity Variations in a Lift</h2><p>Import data from spreadsheet Script for importing data from the following spreadsheet:</p><pre>  Workbook: E:\LTTS\Matlab Intermediate\step_data.xlsx
+  Worksheet: in</pre><p>To extend the code for use with different selected data or a different spreadsheet, generate a function instead of a script.</p><h2 id="11">Import the data</h2><pre class="codeinput">Gravity = Data_Set(:,6);<span class="comment">%importing Gravity values</span>
+[Time]= Data_Set(:,30); <span class="comment">%importing data on time</span>
+subplot(4,4,5);
+plot(Time,Gravity,<span class="string">'r:'</span>); <span class="comment">%plotting Gravity i z axis against time</span>
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Gravity (m/s^2)'</span>);
+title(<span class="string">'Gravity Variations in Lift'</span>)
+<span class="comment">% Understanding the logic</span>
+<span class="keyword">for</span> index =1:100
+    <span class="keyword">if</span>(Gravity(index) &gt; Gravity(index+1))
+        disp(<span class="string">"The lift is moving up."</span>)
+    <span class="keyword">elseif</span>(Gravity(index)&lt;Gravity(index+1))
+        disp(<span class="string">"The lift is moving down."</span>)
+    <span class="keyword">elseif</span>(Gravity(index)==Gravity(index+1))
+        disp(<span class="string">"The lift isn't moving."</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">% Lift Display on application level</span>
+<span class="keyword">for</span> index =1:100
+    <span class="keyword">if</span>(Gravity(index) &gt; Gravity(index+1))
+        disp(<span class="string">"You are heading towards higher floors."</span>)
+    <span class="keyword">elseif</span>(Gravity(index)&lt;Gravity(index+1))
+        disp(<span class="string">"You are heading towards lower floors."</span>)
+    <span class="keyword">elseif</span>(Gravity(index)==Gravity(index+1))
+        disp(<span class="string">"Please close the lift to move further"</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving down.
+The lift is moving up.
+The lift is moving up.
+The lift is moving down.
+The lift is moving up.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+You are heading towards higher floors.
+You are heading towards lower floors.
+You are heading towards higher floors.
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_04.png" alt=""> <h2 id="12">Light Sensor</h2><pre class="codeinput">[light12] = Data_Set;
+[Area] = Data_Set(:,34);
+light_intensity = light12(:,13);
+disp(<span class="string">'Light intensity'</span>);
+disp(light_intensity);
+presentarea = Area(:,1);
+brightness_level(light_intensity);
+findpower(light_intensity, presentarea);
+</pre><pre class="codeoutput">Light intensity
+   172
+   239
+   200
+     2
+   179
+   394
+   195
+   173
+   173
+    44
+    43
+    43
+    47
+   194
+   192
+   173
+   170
+   478
+   219
+   248
+    34
+    33
+     5
+    20
+     1
+     6
+     2
+    15
+    14
+    33
+   148
+    18
+    13
+   157
+   276
+     3
+     5
+    12
+     6
+    17
+    10
+   213
+   208
+   196
+    21
+    29
+    16
+     9
+     9
+    12
+    12
+    24
+    25
+    15
+    15
+    12
+    12
+    31
+    32
+    22
+     9
+    20
+    20
+    26
+    36
+     8
+     4
+     4
+     3
+     3
+     3
+     2
+     2
+     4
+     4
+     5
+     8
+     8
+     8
+     8
+     7
+     7
+     7
+     8
+     6
+     7
+     6
+     6
+     7
+     6
+     7
+     7
+     7
+     6
+     6
+     6
+     6
+     6
+     6
+     6
+     5
+     6
+     7
+     6
+     5
+     6
+     6
+     6
+     5
+    10
+     8
+     6
+     7
+     5
+     5
+    11
+    11
+    13
+    15
+    16
+    14
+    14
+     9
+    10
+     8
+     9
+     8
+     7
+     7
+     8
+     8
+     8
+     8
+     7
+     8
+     7
+     7
+     7
+     7
+     8
+     8
+     8
+     8
+     7
+     7
+     7
+     6
+     6
+     6
+     6
+     6
+     7
+     9
+     6
+     6
+     6
+     6
+     6
+     6
+     6
+     6
+     6
+     6
+     6
+     7
+    12
+     6
+     6
+     6
+    11
+    10
+     9
+     6
+     6
+     6
+     6
+     6
+     5
+     4
+     5
+     5
+     5
+     5
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     7
+     6
+     7
+     6
+     6
+     6
+     5
+     5
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     4
+     5
+     5
+     6
+     4
+     3
+     4
+     4
+     6
+     5
+     4
+     4
+     4
+     4
+     4
+     4
+     3
+     3
+     3
+     4
+     5
+     5
+     4
+     4
+     4
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     3
+     4
+     5
+     5
+     5
+     8
+     8
+     9
+     7
+     7
+     5
+     5
+     6
+     6
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     4
+     5
+     5
+     5
+     5
+     6
+     6
+     7
+    10
+    10
+     9
+     8
+     6
+     6
+     5
+     5
+     5
+     5
+     5
+     5
+     6
+     7
+     6
+     6
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     6
+     6
+     6
+     5
+     6
+     6
+     6
+     6
+     7
+     5
+     6
+     6
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     5
+     6
+     7
+     9
+     9
+    10
+    10
+    10
+    12
+    11
+    11
+    11
+    12
+    12
+    11
+     8
+     8
+     8
+     8
+     8
+     8
+     8
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     8
+     8
+     8
+     8
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     7
+     8
+    15
+    23
+    29
+    13
+    12
+    32
+    30
+    26
+    15
+     8
+     5
+     6
+    12
+     3
+     2
+     3
+     2
+     2
+     5
+     8
+     1
+     1
+     9
+     1
+     1
+     2
+     2
+    13
+    67
+    13
+     1
+     1
+     1
+     2
+    12
+     1
+     2
+     2
+     2
+     2
+     2
+     2
+     2
+     2
+     2
+     3
+     3
+     4
+     0
+     0
+     0
+
+Moderate
+Moderate
+Bright
+Moderate
+Dark
+Moderate
+Moderate
+Moderate
+Bright
+Moderate
+Moderate
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Moderate
+Moderate
+Moderate
+Moderate
+Moderate
+Bright
+Moderate
+Bright
+Moderate
+Bright
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Moderate
+Moderate
+Bright
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Dark
+Moderate
+Moderate
+Bright
+Moderate
+Bright
+Moderate
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_05.png" alt=""> <h2 id="13">Sound Level</h2><pre class="codeinput">[x]=Data_Set(:,30);
+[y]=Data_Set(:,21);
+subplot(4,4,[13:16]);
+plot(x,y);
+xlabel(<span class="string">'Time'</span>);
+ylabel(<span class="string">'sound_level'</span>);
+title(<span class="string">'Noise range'</span>);
+i=1;
+<span class="keyword">for</span> sound=2:67
+<span class="keyword">if</span> (x(i)&gt;25 &amp;&amp;x(i)&lt;=35)
+disp(x(i))
+disp(<span class="string">'no noise'</span>)
+i = i+1;
+<span class="keyword">elseif</span> (x(i)&gt;35 &amp;&amp;x(i)&lt;=45)
+disp(x(i))
+disp(<span class="string">'low level noise'</span>)
+i = i+1;
+<span class="keyword">elseif</span> (x(i)&gt;45 &amp;&amp;x(i)&lt;=65)
+disp(x(i))
+disp(<span class="string">'medium level noise'</span>)
+i = i+1;
+<span class="keyword">else</span>
+disp(x(i))
+disp(<span class="string">'high level  noise'</span>)
+i = i+1;
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">    40
+
+low level noise
+   539
+
+high level  noise
+        1040
+
+high level  noise
+        1539
+
+high level  noise
+        2040
+
+high level  noise
+        2540
+
+high level  noise
+        3040
+
+high level  noise
+        3539
+
+high level  noise
+        4039
+
+high level  noise
+        4539
+
+high level  noise
+        5040
+
+high level  noise
+        5539
+
+high level  noise
+        6039
+
+high level  noise
+        6539
+
+high level  noise
+        7039
+
+high level  noise
+        7539
+
+high level  noise
+        8039
+
+high level  noise
+        8539
+
+high level  noise
+        9039
+
+high level  noise
+        9540
+
+high level  noise
+       10039
+
+high level  noise
+       10539
+
+high level  noise
+       11040
+
+high level  noise
+       11539
+
+high level  noise
+       12039
+
+high level  noise
+       12540
+
+high level  noise
+       13039
+
+high level  noise
+       13539
+
+high level  noise
+       14039
+
+high level  noise
+       14540
+
+high level  noise
+       15040
+
+high level  noise
+       15540
+
+high level  noise
+       16040
+
+high level  noise
+       16540
+
+high level  noise
+       17039
+
+high level  noise
+       17539
+
+high level  noise
+       18040
+
+high level  noise
+       18540
+
+high level  noise
+       19041
+
+high level  noise
+       19539
+
+high level  noise
+       20039
+
+high level  noise
+       20539
+
+high level  noise
+       21040
+
+high level  noise
+       21540
+
+high level  noise
+       22040
+
+high level  noise
+       22540
+
+high level  noise
+       23040
+
+high level  noise
+       23539
+
+high level  noise
+       24039
+
+high level  noise
+       24539
+
+high level  noise
+       25039
+
+high level  noise
+       25539
+
+high level  noise
+       26040
+
+high level  noise
+       26539
+
+high level  noise
+       27039
+
+high level  noise
+       27539
+
+high level  noise
+       28039
+
+high level  noise
+       28539
+
+high level  noise
+       29039
+
+high level  noise
+       29540
+
+high level  noise
+       30041
+
+high level  noise
+       30539
+
+high level  noise
+       31039
+
+high level  noise
+       31539
+
+high level  noise
+       32039
+
+high level  noise
+       32539
+
+high level  noise
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_06.png" alt=""> <h2 id="14">Accelerometer</h2><h2 id="15">Import data from text file</h2><p>Script for importing data from the following text file:</p><pre>  filename: G:\pavan_matlab\MBD\data_sensor.csv</pre><p>Auto-generated by MATLAB on 20-Dec-2020 18:09:54</p><h2 id="16">Set up the Import Options and import the data</h2><pre class="codeinput">opts = delimitedTextImportOptions(<span class="string">"NumVariables"</span>, 31);
+
+<span class="comment">% Specify range and delimiter</span>
+opts.DataLines = [3, Inf];
+opts.Delimiter = <span class="string">";"</span>;
+
+<span class="comment">% Specify column names and types</span>
+opts.VariableNames = [<span class="string">"ACCELEROMETERXms"</span>, <span class="string">"ACCELEROMETERYms"</span>, <span class="string">"ACCELEROMETERZms"</span>, <span class="string">"GRAVITYXms"</span>, <span class="string">"GRAVITYYms"</span>, <span class="string">"GRAVITYZms"</span>, <span class="string">"LINEARACCELERATIONXms"</span>, <span class="string">"LINEARACCELERATIONYms"</span>, <span class="string">"LINEARACCELERATIONZms"</span>, <span class="string">"GYROSCOPEXrads"</span>, <span class="string">"GYROSCOPEYrads"</span>, <span class="string">"GYROSCOPEZrads"</span>, <span class="string">"LIGHTlux"</span>, <span class="string">"MAGNETICFIELDXT"</span>, <span class="string">"MAGNETICFIELDYT"</span>, <span class="string">"MAGNETICFIELDZT"</span>, <span class="string">"ORIENTATIONZazimuth"</span>, <span class="string">"ORIENTATIONXpitch"</span>, <span class="string">"ORIENTATIONYroll"</span>, <span class="string">"PROXIMITYi"</span>, <span class="string">"SOUNDLEVELdB"</span>, <span class="string">"LOCATIONLatitude"</span>, <span class="string">"LOCATIONLongitude"</span>, <span class="string">"LOCATIONAltitudeM"</span>, <span class="string">"LOCATIONAltitudegoogleM"</span>, <span class="string">"LOCATIONSpeedKmh"</span>, <span class="string">"LOCATIONAccuracyM"</span>, <span class="string">"LOCATIONORIENTATION"</span>, <span class="string">"SatellitesInRange"</span>, <span class="string">"TimeSinceStartInMs"</span>, <span class="string">"YYYYMODDHHMISS_SSS"</span>];
+opts.VariableTypes = [<span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"double"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"double"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"string"</span>, <span class="string">"categorical"</span>, <span class="string">"double"</span>, <span class="string">"string"</span>];
+
+<span class="comment">% Specify file level properties</span>
+opts.ExtraColumnsRule = <span class="string">"ignore"</span>;
+opts.EmptyLineRule = <span class="string">"read"</span>;
+opts.ConsecutiveDelimitersRule = <span class="string">"join"</span>;
+
+<span class="comment">% Specify variable properties</span>
+opts = setvaropts(opts, [<span class="string">"LOCATIONLatitude"</span>, <span class="string">"LOCATIONLongitude"</span>, <span class="string">"LOCATIONAltitudeM"</span>, <span class="string">"LOCATIONSpeedKmh"</span>, <span class="string">"LOCATIONAccuracyM"</span>, <span class="string">"LOCATIONORIENTATION"</span>, <span class="string">"YYYYMODDHHMISS_SSS"</span>], <span class="string">"WhitespaceRule"</span>, <span class="string">"preserve"</span>);
+opts = setvaropts(opts, [<span class="string">"LOCATIONLatitude"</span>, <span class="string">"LOCATIONLongitude"</span>, <span class="string">"LOCATIONAltitudeM"</span>, <span class="string">"LOCATIONSpeedKmh"</span>, <span class="string">"LOCATIONAccuracyM"</span>, <span class="string">"LOCATIONORIENTATION"</span>, <span class="string">"SatellitesInRange"</span>, <span class="string">"YYYYMODDHHMISS_SSS"</span>], <span class="string">"EmptyFieldRule"</span>, <span class="string">"auto"</span>);
+
+<span class="comment">% Import the data</span>
+tbl = readtable(<span class="string">"Team_1_Data_Set.xlsx"</span>, opts);
+</pre><h2 id="17">Convert to output type</h2><pre class="codeinput">ACCELEROMETERXms = tbl.ACCELEROMETERXms;
+ACCELEROMETERYms = tbl.ACCELEROMETERYms;
+ACCELEROMETERZms = tbl.ACCELEROMETERZms;
+GRAVITYXms = tbl.GRAVITYXms;
+GRAVITYYms = tbl.GRAVITYYms;
+GRAVITYZms = tbl.GRAVITYZms;
+LINEARACCELERATIONXms = tbl.LINEARACCELERATIONXms;
+LINEARACCELERATIONYms = tbl.LINEARACCELERATIONYms;
+LINEARACCELERATIONZms = tbl.LINEARACCELERATIONZms;
+GYROSCOPEXrads = tbl.GYROSCOPEXrads;
+GYROSCOPEYrads = tbl.GYROSCOPEYrads;
+GYROSCOPEZrads = tbl.GYROSCOPEZrads;
+LIGHTlux = tbl.LIGHTlux;
+MAGNETICFIELDXT = tbl.MAGNETICFIELDXT;
+MAGNETICFIELDYT = tbl.MAGNETICFIELDYT;
+MAGNETICFIELDZT = tbl.MAGNETICFIELDZT;
+ORIENTATIONZazimuth = tbl.ORIENTATIONZazimuth;
+ORIENTATIONXpitch = tbl.ORIENTATIONXpitch;
+ORIENTATIONYroll = tbl.ORIENTATIONYroll;
+PROXIMITYi = tbl.PROXIMITYi;
+SOUNDLEVELdB = tbl.SOUNDLEVELdB;
+LOCATIONLatitude = tbl.LOCATIONLatitude;
+LOCATIONLongitude = tbl.LOCATIONLongitude;
+LOCATIONAltitudeM = tbl.LOCATIONAltitudeM;
+LOCATIONAltitudegoogleM = tbl.LOCATIONAltitudegoogleM;
+LOCATIONSpeedKmh = tbl.LOCATIONSpeedKmh;
+LOCATIONAccuracyM = tbl.LOCATIONAccuracyM;
+LOCATIONORIENTATION = tbl.LOCATIONORIENTATION;
+SatellitesInRange = tbl.SatellitesInRange;
+TimeSinceStartInMs = tbl.TimeSinceStartInMs;
+YYYYMODDHHMISS_SSS = tbl.YYYYMODDHHMISS_SSS;
+</pre><h2 id="18">Import the data</h2><pre class="codeinput">[input0_0] = xlsread(<span class="string">'Team_1_Data_Set.xlsx'</span>,<span class="string">'A2:C28'</span>);
+[input0_1] = xlsread(<span class="string">'Team_1_Data_Set.xlsx'</span>,<span class="string">'AD2:AD28'</span>);
+input = [input0_0,input0_1];
+</pre><h2 id="19">Create output variable</h2><pre class="codeinput">data = input;
+</pre><h2 id="20">Create table</h2><pre class="codeinput">data1 = table;
+</pre><h2 id="21">Allocate imported array to column variable names</h2><pre class="codeinput">data1.ACCELEROMETERXms = data(:,1);
+data1.ACCELEROMETERYms = data(:,2);
+data1.ACCELEROMETERZms = data(:,3);
+data1.Timesincestartinms = data(:,4);
+</pre><h2 id="22">Clear temporary variables</h2><pre class="codeinput">clear <span class="string">opts</span> <span class="string">tb1</span> <span class="string">input0_0</span> <span class="string">input0_1</span> <span class="string">R</span>
+<span class="comment">% steps_acceleration</span>
+<span class="comment">% Counts No of Steps from Acceleration Data</span>
+ax=data1.ACCELEROMETERXms;
+ay=data1.ACCELEROMETERYms;
+az=data1.ACCELEROMETERZms;
+t=data1.Timesincestartinms;
+stepcount = 0;
+<span class="comment">% Changes in Acceleration Sensors will indicate steps</span>
+disp(<span class="string">'Walking'</span>)
+length = sqrt(sum(ax.^2 + ay.^2 + az.^2, 2));
+disp(length);
+<span class="comment">% Plot magnitude</span>
+subplot(4,4,6);
+stem(t, length);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Acceleration (m/s^2)'</span>);
+title(<span class="string">'Magnitude'</span>)
+<span class="comment">% Remove effects of gravitity</span>
+magNoGrav = length - mean(length);
+subplot(4,4,7);
+stem(t, magNoGrav);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Acceleration (m/s^2)'</span>);
+title(<span class="string">'No Gravity'</span>)
+<span class="comment">% Absolute magnitude</span>
+amag = abs(magNoGrav);
+subplot(4,4,8);
+stem(t, amag);
+title(<span class="string">'Absolute Magnitude'</span>)
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Acceleration Magnitude, No Gravity (m/s^2)'</span>);
+<span class="comment">% step counting</span>
+<span class="keyword">if</span>(length&gt;=2)
+    stepcount = stepcount+1;
+    disp(<span class="string">'stepcount'</span>)
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Walking
+    9.2303
+   10.6378
+   10.7131
+   10.0150
+   10.7010
+   10.3884
+   10.8256
+   12.2977
+    9.2779
+    9.8352
+    9.3291
+   14.3526
+    9.8460
+   18.6051
+   17.4766
+    6.5500
+   12.8347
+   11.8252
+    3.1520
+    8.3045
+   15.4630
+   17.5382
+    5.8634
+    5.3997
+    4.7830
+   15.6501
+   16.8507
+
+stepcount
+</pre><img vspace="5" hspace="5" src="Algorithm_Integrated_07.png" alt=""> <h2 id="23">Functions</h2><pre class="codeinput"><span class="keyword">function</span> findpower(lightint, prsntar)
+ power = lightint .* prsntar;
+ toplot(lightint, power);
+ <span class="keyword">function</span> toplot(light_intensity, power)
+   subplot(4,4,10);
+   plot(light_intensity);
+   title(<span class="string">"Light intensity"</span>);
+   xlabel(<span class="string">"Time"</span>);
+   ylabel(<span class="string">"Light intensity(LUX)"</span>);
+   subplot(4,4,11);
+   plot(power);
+   title(<span class="string">"Power"</span>);
+   xlabel(<span class="string">"Time"</span>);
+  ylabel(<span class="string">"Power(watts)"</span>);
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">function</span> brightness_level(light_intensity)
+ <span class="keyword">for</span> index = 1:44
+    <span class="keyword">if</span> light_intensity(index,1) &lt;= 100
+         disp(<span class="string">"Dark"</span>);
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> (100 &lt; light_intensity(index,1) &lt; 200)
+         disp(<span class="string">"Moderate"</span>);
+    <span class="keyword">end</span>
+     <span class="keyword">if</span> light_intensity(index,1) &gt; 200
+         disp(<span class="string">"Bright"</span>);
+     <span class="keyword">end</span>
+ <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Import data from spreadsheet
+%read the data required from whole data sheet
+%proximity data taken to a
+Data_Set=xlsread ('Team_1_Data_Set.xlsx');
+[prox_0] = Data_Set(:,30);
+[prox_1] = Data_Set(:,20);
+% plotting the value of proximity sensor against time
+%plot the graph
+subplot(4,4,9);
+plot(prox_0,prox_1);
+xlabel("Time (s)");
+ylabel("Proximity");
+title("ProximityPlot");
+%% verifying the data
+disp('put any obstacle near phone')
+b=1;
+for loop = 1:30
+    if (prox_1(b)==0)
+        disp(prox_1(b))
+        disp('obstacle find within 5CM')
+        b = b+1;
+    elseif (prox_1(b)>0 && prox_1(b)<=10)
+        disp(prox_1(b))
+        disp('obstacle find within 10CM')
+        b = b+1;
+    else
+        disp(prox_1(b))
+        disp('safe, no obstacle')
+        b = b+1;
+    end
+end
+%% Gyroscope
+% Import data from text file
+% Script for importing data from the following text file:
+%
+%    filename: D:\Akshay_Files\androsensor.csv
+%
+% Auto-generated by MATLAB on 20-Dec-2020 14:29:29
+
+%% Set up the Import Options and import the data
+opts = delimitedTextImportOptions("NumVariables", 31);
+
+% Specify range and delimiter
+opts.DataLines = [1, Inf];
+opts.Delimiter = ";";
+
+% Specify column names and types
+opts.VariableNames = ["ACCELEROMETERXms", "ACCELEROMETERYms", "ACCELEROMETERZms", "GRAVITYXms", "GRAVITYYms", "GRAVITYZms", "LINEARACCELERATIONXms", "LINEARACCELERATIONYms", "LINEARACCELERATIONZms", "GYROSCOPEXrads", "GYROSCOPEYrads", "GYROSCOPEZrads", "LIGHTlux", "MAGNETICFIELDXT", "MAGNETICFIELDYT", "MAGNETICFIELDZT", "ORIENTATIONZazimuth", "ORIENTATIONXpitch", "ORIENTATIONYroll", "PROXIMITYi", "SOUNDLEVELdB", "LOCATIONLatitude", "LOCATIONLongitude", "LOCATIONAltitudeM", "LOCATIONAltitudegoogleM", "LOCATIONSpeedKmh", "LOCATIONAccuracyM", "LOCATIONORIENTATION", "SatellitesInRange", "TimeSinceStartInMs", "YYYYMODDHHMISS_SSS"];
+opts.VariableTypes = ["double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "string", "string", "string", "double", "string", "string", "string", "categorical", "double", "string"];
+
+% Specify file level properties
+opts.ExtraColumnsRule = "ignore";
+opts.EmptyLineRule = "read";
+opts.ConsecutiveDelimitersRule = "join";
+
+% Specify variable properties
+opts = setvaropts(opts, ["LOCATIONLatitude", "LOCATIONLongitude", "LOCATIONAltitudeM", "LOCATIONSpeedKmh", "LOCATIONAccuracyM", "LOCATIONORIENTATION", "YYYYMODDHHMISS_SSS"], "WhitespaceRule", "preserve");
+opts = setvaropts(opts, ["LOCATIONLatitude", "LOCATIONLongitude", "LOCATIONAltitudeM", "LOCATIONSpeedKmh", "LOCATIONAccuracyM", "LOCATIONORIENTATION", "SatellitesInRange", "YYYYMODDHHMISS_SSS"], "EmptyFieldRule", "auto");
+
+% Import the data
+x_read = xlsread('Team_1_Data_Set.xlsx','J2:J98');
+timems = xlsread('Team_1_Data_Set.xlsx','AD2:AD98');
+gyro_x = [x_read,timems];
+
+%% Create output variable
+data = gyro_x;
+
+%% Create table
+stepdata = table;
+
+%% Allocate imported array to column variable names
+stepdata.GYROSCOPEXrads = data(:,1);
+stepdata.TimeSinceStartInMs = data(:,2);
+
+%% Clear temporary variables
+clearvars gyro_x x_read timems R;
+
+%data=x_read;
+stepdata=table;
+stepdata1=table;
+%data1=timems;
+stepdata.gyroscope=data(:,1);
+stepdata.time=data(:,2);
+values=numel(data(:,1));
+p=[];
+cnt=0;
+cnt1=0;
+for i=1:values
+    j=j+1;
+    if(stepdata.gyroscope(i,1)>0)
+        cnt=cnt+1;
+        stem(stepdata.gyroscope(i,1));
+        disp("The phone is  being using");
+    else
+        cnt1=cnt1+1;
+        disp("The phone is not being used");
+    end
+    disp("The number of times the phone is being used is ");
+    disp(cnt);
+    disp("The number of times the phone is not being used is ");
+    disp("cnt1");
+end
+subplot(4,4,12);
+plot(stepdata.time,stepdata.gyroscope);
+title("Gyroscope Data");
+xlabel("Time (ms)");
+ylabel("Radians per sec");
+
+%% Speed Calculation
+[Latitude] = Data_Set(:,22);
+[Longitude] = Data_Set(:,23);
+[Speed] = Data_Set(:,26);
+[Time] = Data_Set(:,30);
+
+Lat1 = [];
+Long1 = [];
+Lat2 = [];
+Long2 = [];
+Lat3 = [];
+Long3 = [];
+
+[a, speedLength]=size(Speed);
+
+for i = 1:speedLength
+    if Speed(i) < 10
+        [Lat1] = [Lat1;Latitude(i)];
+        [Long1] = [Long1;Longitude(i)];
+    elseif Speed(i)>=10 && Speed(i)<30
+        [Lat2] = [Lat2;Latitude(i)];
+        [Long2] = [Long2;Longitude(i)];
+    else
+        [Lat3] = [Lat3;Latitude(i)];
+        [Long3] = [Long3;Longitude(i)];
+    end
+end
+%subplot(2,2,2);
+
+%title('Locations With High traffic');
+%xlabel('Latitude');
+%ylabel('Longitude');
+subplot(4,4,1);
+geoscatter(Latitude,Longitude,'r');
+title('Total Route');
+subplot(4,4,2);
+geoscatter(Lat1,Long1);
+plot(Time,Speed);
+title('Speed Vs Time');
+xlabel('Time');
+ylabel('Speed');
+subplot(4,4,3);
+geoscatter(Lat1,Long1,'o');
+title('Locations With High traffic');
+subplot(4,4,4);
+geoscatter(Lat2,Long2,'k');
+title('Locations With Low traffic');
+
+
+%% Gravity Variations in a Lift
+% Import data from spreadsheet
+% Script for importing data from the following spreadsheet:
+%
+%    Workbook: E:\LTTS\Matlab Intermediate\step_data.xlsx
+%    Worksheet: in
+%
+% To extend the code for use with different selected data or a different
+% spreadsheet, generate a function instead of a script.
+
+%% Import the data
+
+Gravity = Data_Set(:,6);%importing Gravity values
+[Time]= Data_Set(:,30); %importing data on time
+subplot(4,4,5);
+plot(Time,Gravity,'r:'); %plotting Gravity i z axis against time
+xlabel('Time (s)');
+ylabel('Gravity (m/s^2)');
+title('Gravity Variations in Lift')
+% Understanding the logic 
+for index =1:100
+    if(Gravity(index) > Gravity(index+1))
+        disp("The lift is moving up.")
+    elseif(Gravity(index)<Gravity(index+1))
+        disp("The lift is moving down.")
+    elseif(Gravity(index)==Gravity(index+1))
+        disp("The lift isn't moving.")
+    end
+end
+% Lift Display on application level
+for index =1:100
+    if(Gravity(index) > Gravity(index+1))
+        disp("You are heading towards higher floors.")
+    elseif(Gravity(index)<Gravity(index+1))
+        disp("You are heading towards lower floors.")
+    elseif(Gravity(index)==Gravity(index+1))
+        disp("Please close the lift to move further")
+    end
+end
+
+
+
+%% Light Sensor
+[light12] = Data_Set;
+[Area] = Data_Set(:,34);
+light_intensity = light12(:,13);
+disp('Light intensity');
+disp(light_intensity);
+presentarea = Area(:,1);
+brightness_level(light_intensity);
+findpower(light_intensity, presentarea);
+
+%% Sound Level
+[x]=Data_Set(:,30);
+[y]=Data_Set(:,21);
+subplot(4,4,[13:16]);
+plot(x,y);
+xlabel('Time');
+ylabel('sound_level');
+title('Noise range');
+i=1;       
+for sound=2:67
+if (x(i)>25 &&x(i)<=35)
+disp(x(i))
+disp('no noise')
+i = i+1;
+elseif (x(i)>35 &&x(i)<=45)
+disp(x(i))
+disp('low level noise')
+i = i+1;
+elseif (x(i)>45 &&x(i)<=65)
+disp(x(i))
+disp('medium level noise')
+i = i+1;
+else
+disp(x(i))
+disp('high level  noise')
+i = i+1;
+end
+end 
+
+%% Accelerometer
+%% Import data from text file
+% Script for importing data from the following text file:
+%
+%    filename: G:\pavan_matlab\MBD\data_sensor.csv
+%
+% Auto-generated by MATLAB on 20-Dec-2020 18:09:54
+
+%% Set up the Import Options and import the data
+opts = delimitedTextImportOptions("NumVariables", 31);
+
+% Specify range and delimiter
+opts.DataLines = [3, Inf];
+opts.Delimiter = ";";
+
+% Specify column names and types
+opts.VariableNames = ["ACCELEROMETERXms", "ACCELEROMETERYms", "ACCELEROMETERZms", "GRAVITYXms", "GRAVITYYms", "GRAVITYZms", "LINEARACCELERATIONXms", "LINEARACCELERATIONYms", "LINEARACCELERATIONZms", "GYROSCOPEXrads", "GYROSCOPEYrads", "GYROSCOPEZrads", "LIGHTlux", "MAGNETICFIELDXT", "MAGNETICFIELDYT", "MAGNETICFIELDZT", "ORIENTATIONZazimuth", "ORIENTATIONXpitch", "ORIENTATIONYroll", "PROXIMITYi", "SOUNDLEVELdB", "LOCATIONLatitude", "LOCATIONLongitude", "LOCATIONAltitudeM", "LOCATIONAltitudegoogleM", "LOCATIONSpeedKmh", "LOCATIONAccuracyM", "LOCATIONORIENTATION", "SatellitesInRange", "TimeSinceStartInMs", "YYYYMODDHHMISS_SSS"];
+opts.VariableTypes = ["double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "string", "string", "string", "double", "string", "string", "string", "categorical", "double", "string"];
+
+% Specify file level properties
+opts.ExtraColumnsRule = "ignore";
+opts.EmptyLineRule = "read";
+opts.ConsecutiveDelimitersRule = "join";
+
+% Specify variable properties
+opts = setvaropts(opts, ["LOCATIONLatitude", "LOCATIONLongitude", "LOCATIONAltitudeM", "LOCATIONSpeedKmh", "LOCATIONAccuracyM", "LOCATIONORIENTATION", "YYYYMODDHHMISS_SSS"], "WhitespaceRule", "preserve");
+opts = setvaropts(opts, ["LOCATIONLatitude", "LOCATIONLongitude", "LOCATIONAltitudeM", "LOCATIONSpeedKmh", "LOCATIONAccuracyM", "LOCATIONORIENTATION", "SatellitesInRange", "YYYYMODDHHMISS_SSS"], "EmptyFieldRule", "auto");
+
+% Import the data
+tbl = readtable("Team_1_Data_Set.xlsx", opts);
+
+%% Convert to output type
+ACCELEROMETERXms = tbl.ACCELEROMETERXms;
+ACCELEROMETERYms = tbl.ACCELEROMETERYms;
+ACCELEROMETERZms = tbl.ACCELEROMETERZms;
+GRAVITYXms = tbl.GRAVITYXms;
+GRAVITYYms = tbl.GRAVITYYms;
+GRAVITYZms = tbl.GRAVITYZms;
+LINEARACCELERATIONXms = tbl.LINEARACCELERATIONXms;
+LINEARACCELERATIONYms = tbl.LINEARACCELERATIONYms;
+LINEARACCELERATIONZms = tbl.LINEARACCELERATIONZms;
+GYROSCOPEXrads = tbl.GYROSCOPEXrads;
+GYROSCOPEYrads = tbl.GYROSCOPEYrads;
+GYROSCOPEZrads = tbl.GYROSCOPEZrads;
+LIGHTlux = tbl.LIGHTlux;
+MAGNETICFIELDXT = tbl.MAGNETICFIELDXT;
+MAGNETICFIELDYT = tbl.MAGNETICFIELDYT;
+MAGNETICFIELDZT = tbl.MAGNETICFIELDZT;
+ORIENTATIONZazimuth = tbl.ORIENTATIONZazimuth;
+ORIENTATIONXpitch = tbl.ORIENTATIONXpitch;
+ORIENTATIONYroll = tbl.ORIENTATIONYroll;
+PROXIMITYi = tbl.PROXIMITYi;
+SOUNDLEVELdB = tbl.SOUNDLEVELdB;
+LOCATIONLatitude = tbl.LOCATIONLatitude;
+LOCATIONLongitude = tbl.LOCATIONLongitude;
+LOCATIONAltitudeM = tbl.LOCATIONAltitudeM;
+LOCATIONAltitudegoogleM = tbl.LOCATIONAltitudegoogleM;
+LOCATIONSpeedKmh = tbl.LOCATIONSpeedKmh;
+LOCATIONAccuracyM = tbl.LOCATIONAccuracyM;
+LOCATIONORIENTATION = tbl.LOCATIONORIENTATION;
+SatellitesInRange = tbl.SatellitesInRange;
+TimeSinceStartInMs = tbl.TimeSinceStartInMs;
+YYYYMODDHHMISS_SSS = tbl.YYYYMODDHHMISS_SSS;
+
+
+%% Import the data
+[input0_0] = xlsread('Team_1_Data_Set.xlsx','A2:C28');
+[input0_1] = xlsread('Team_1_Data_Set.xlsx','AD2:AD28');
+input = [input0_0,input0_1];
+
+%% Create output variable
+data = input;
+
+%% Create table
+data1 = table;
+
+%% Allocate imported array to column variable names
+data1.ACCELEROMETERXms = data(:,1);
+data1.ACCELEROMETERYms = data(:,2);
+data1.ACCELEROMETERZms = data(:,3);
+data1.Timesincestartinms = data(:,4);
+%% Clear temporary variables
+clear opts tb1 input0_0 input0_1 R
+% steps_acceleration
+% Counts No of Steps from Acceleration Data
+ax=data1.ACCELEROMETERXms;
+ay=data1.ACCELEROMETERYms;
+az=data1.ACCELEROMETERZms;
+t=data1.Timesincestartinms;
+stepcount = 0;
+% Changes in Acceleration Sensors will indicate steps
+disp('Walking')
+length = sqrt(sum(ax.^2 + ay.^2 + az.^2, 2));
+disp(length);
+% Plot magnitude
+subplot(4,4,6);
+stem(t, length);
+xlabel('Time (s)');
+ylabel('Acceleration (m/s^2)');
+title('Magnitude')
+% Remove effects of gravitity
+magNoGrav = length - mean(length);
+subplot(4,4,7);
+stem(t, magNoGrav);
+xlabel('Time (s)');
+ylabel('Acceleration (m/s^2)');
+title('No Gravity')
+% Absolute magnitude
+amag = abs(magNoGrav);
+subplot(4,4,8);
+stem(t, amag);
+title('Absolute Magnitude')
+xlabel('Time (s)');
+ylabel('Acceleration Magnitude, No Gravity (m/s^2)');
+% step counting
+if(length>=2)
+    stepcount = stepcount+1;
+    disp('stepcount')
+end
+%% Functions
+function findpower(lightint, prsntar)
+ power = lightint .* prsntar;
+ toplot(lightint, power);
+ function toplot(light_intensity, power)
+   subplot(4,4,10);
+   plot(light_intensity);
+   title("Light intensity");
+   xlabel("Time");
+   ylabel("Light intensity(LUX)");
+   subplot(4,4,11);
+   plot(power);
+   title("Power");
+   xlabel("Time");
+  ylabel("Power(watts)");
+ end
+end
+function brightness_level(light_intensity)
+ for index = 1:44
+    if light_intensity(index,1) <= 100
+         disp("Dark");
+    end
+    if (100 < light_intensity(index,1) < 200) 
+         disp("Moderate");
+    end
+     if light_intensity(index,1) > 200
+         disp("Bright");
+     end
+ end
+end
+
+
+##### SOURCE END #####
+--></body></html>
